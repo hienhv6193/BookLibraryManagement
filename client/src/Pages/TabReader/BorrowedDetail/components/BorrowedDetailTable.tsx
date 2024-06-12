@@ -16,7 +16,7 @@ import {
   deleteBorrowedDetail,
   getBorrowedDetail,
 } from "../../../../Redux/Reducers/borrowed_detail.reducer";
-import EditBorrowedDetailModal from "./EditBorrowedDetailModal";
+import EditBorrowedDetail from "./EditBorrowedDetail";
 
 const columns = [
   { label: "Mã chi tiết phiếu mượn" },
@@ -92,7 +92,7 @@ const BorrowedDetailTable = () => {
             <TableCell role="gridcell" tabIndex={0} {...focusableGroupAttr}>
               <TableCellLayout>
                 {/* <BorrowedDetailById id={item.id} /> */}
-                <EditBorrowedDetailModal id={item.id} />
+                <EditBorrowedDetail id={item.id} />
                 <Button
                   icon={<DeleteRegular />}
                   aria-label="Delete"

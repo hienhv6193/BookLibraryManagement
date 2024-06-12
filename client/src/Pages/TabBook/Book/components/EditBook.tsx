@@ -72,23 +72,24 @@ const EditBook: React.FC<EditBookProps> = (
     }
     if (id) {
       fetchData();
-      dispatch(getTypeBook());
-      dispatch(getAuthor());
-      dispatch(getPublishingCompany());
     }
-
+  }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getTypeBook());
+    dispatch(getAuthor());
+    dispatch(getPublishingCompany());
+  }, [dispatch]);
+  useEffect(() => {
     if (typeBook) {
       setOptions(typeBook.map((card) => card.id));
     }
-
     if (author) {
       setOptionsAuthor(author.map((card) => card.id));
     }
-
     if (publishing) {
       setOptionsPublishing(publishing.map((card) => card.id));
     }
-  }, [dispatch, typeBook, author, publishing, id]);
+  }, [typeBook, author, publishing]);
 
   const handleTypeBookSelect = (selectedCardId: string) => {
     setBook((prevType) => ({ ...prevType, type_id: selectedCardId }));

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\WebApp\\Library\\server\\server\\server.csproj": {}
+    "D:\\WebApp\\Library\\book_library_management\\server\\server\\server.csproj": {}
   },
   "projects": {
-    "D:\\WebApp\\Library\\server\\server\\server.csproj": {
+    "D:\\WebApp\\Library\\book_library_management\\server\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WebApp\\Library\\server\\server\\server.csproj",
+        "projectUniqueName": "D:\\WebApp\\Library\\book_library_management\\server\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "D:\\WebApp\\Library\\server\\server\\server.csproj",
+        "projectPath": "D:\\WebApp\\Library\\book_library_management\\server\\server\\server.csproj",
         "packagesPath": "C:\\Users\\Ho Hien\\.nuget\\packages\\",
-        "outputPath": "D:\\WebApp\\Library\\server\\server\\obj\\",
+        "outputPath": "D:\\WebApp\\Library\\book_library_management\\server\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ho Hien\\AppData\\Roaming\\NuGet\\NuGet.Config",

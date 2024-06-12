@@ -20,7 +20,6 @@ import { Field } from "@fluentui/react-components";
 import type { DatePickerProps } from "@fluentui/react-datepicker-compat";
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
-import { getLoanSlip } from "../../../../Redux/Reducers/loan_slip.reducer";
 import { getBook } from "../../../../Redux/Reducers/book.reducer";
 import {
   BorrowedDetail,
@@ -50,7 +49,6 @@ const EditBorrowedDetail: React.FC<EditBorrowedDetailProps> = (
   });
   // select loan slip
   const dropdownId = useId("dropdown-default");
-  const [options, setOptions] = useState<string[]>([]);
   const loanSlip = useAppSelector((state) => state.loanSlip.loanSlip);
   const book = useAppSelector((state) => state.book.books);
   useEffect(() => {
@@ -62,21 +60,15 @@ const EditBorrowedDetail: React.FC<EditBorrowedDetailProps> = (
     if (id) {
       fetchData();
     }
-    dispatch(getLoanSlip());
-    if (loanSlip) {
-      setOptions(loanSlip.map((card) => card.id));
-    }
+  }, [dispatch, id]);
+  useEffect(() => {
     dispatch(getBook());
+  }, [dispatch]);
+  useEffect(() => {
     if (book) {
       setOptionsBook(book.map((card) => card.id));
     }
-  }, [dispatch, loanSlip, book, id]);
-  const handleLoanSlipSelect = (selectedCardId: string) => {
-    setBorrowedDetail((prevLoanSlip) => ({
-      ...prevLoanSlip,
-      id: selectedCardId,
-    }));
-  };
+  }, [loanSlip, book]);
   // select book
   const dropdownIdBook = useId("dropdown-default");
   const [optionsBook, setOptionsBook] = useState<string[]>([]);
@@ -115,30 +107,8 @@ const EditBorrowedDetail: React.FC<EditBorrowedDetailProps> = (
       </DialogTrigger>
       <DialogSurface>
         <DialogBody>
-          <DialogTitle>Thêm thẻ thư viện sách</DialogTitle>
+          <DialogTitle>Cập nhật chi tiết phiếu mượn</DialogTitle>
           <DialogContent>
-            <div>
-              <label id={dropdownId} style={{ paddingInlineEnd: "12px" }}>
-                Chọn thẻ thư viện
-              </label>
-              <Dropdown
-                aria-labelledby={dropdownId}
-                placeholder="Chọn thẻ thư viện"
-                {...props}
-                value={borrowedDetail.id}
-              >
-                {options.map((option) => (
-                  <Option
-                    key={option}
-                    value={option}
-                    onClick={() => handleLoanSlipSelect(option)}
-                  >
-                    {option}
-                  </Option>
-                ))}
-              </Dropdown>
-            </div>
-            <br />
             <Field
               label="Tên chi tiết phiếu mượn"
               style={{ paddingInlineEnd: "12px" }}

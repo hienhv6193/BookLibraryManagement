@@ -11,7 +11,6 @@ import {
   Option,
   DropdownProps,
   Input,
-  makeStyles,
   useId,
   Field,
 } from "@fluentui/react-components";
@@ -26,15 +25,6 @@ import { useEffect, useState } from "react";
 import { EditRegular } from "@fluentui/react-icons";
 import { getLibraryCard } from "../../../../Redux/Reducers/library_card.reducer";
 
-const useStyles = makeStyles({
-  root: {
-    display: "grid",
-    gridTemplateRows: "repeat(1fr)",
-    justifyItems: "start",
-    gap: "2px",
-  },
-});
-
 interface EditReaderProps {
   id: string;
 }
@@ -45,7 +35,6 @@ const EditReader: React.FC<EditReaderProps> = (
 ) => {
   const inputName = useId("input");
   const inputAddress = useId("input");
-  const styles = useStyles();
   const dropdownId = useId("dropdown-default");
   const [options, setOptions] = useState<string[]>([]);
   const [reader, setReader] = useState<CreateReaderBody>({
@@ -55,34 +44,40 @@ const EditReader: React.FC<EditReaderProps> = (
   });
   const dispatch = useAppDispatch();
   const libraryCards = useAppSelector((state) => state.libraryCard.libraryCard);
+
   useEffect(() => {
     async function fetchData() {
       const data = await dispatch(getReaderById(id));
       setReader(data.payload as CreateReaderBody);
     }
-
     if (id) {
       fetchData();
     }
+  }, [id, dispatch]);
 
+  useEffect(() => {
     dispatch(getLibraryCard());
+  }, [dispatch]);
+  useEffect(() => {
     if (libraryCards) {
       setOptions(libraryCards.map((card) => card.id));
     }
-  }, [dispatch, id, libraryCards]);
-
+  }, [libraryCards]);
+  const handleInputNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReader({ ...reader, name: e.target.value });
+  };
+  const handleInputAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReader({ ...reader, address: e.target.value });
+  };
   const handleLibraryCardSelect = (selectedCardId: string) => {
-    setReader((prevReader) => ({
-      ...prevReader,
-      library_card_id: selectedCardId,
-    }));
+    setReader({ ...reader, library_card_id: selectedCardId });
   };
   const handleUpdate = async (newReader: CreateReaderBody) => {
     try {
       await dispatch(updateReader({ ...newReader, id }));
       await dispatch(getReader());
     } catch (error) {
-      console.error("Failed to create reader", error);
+      console.error("Failed to update reader", error);
     }
   };
   return (
@@ -98,8 +93,8 @@ const EditReader: React.FC<EditReaderProps> = (
               <Input
                 id={inputName}
                 required
-                onChange={(e) => setReader({ ...reader, name: e.target.value })}
                 value={reader.name}
+                onChange={handleInputNameChange}
               />
             </Field>
             <br />
@@ -107,14 +102,12 @@ const EditReader: React.FC<EditReaderProps> = (
               <Input
                 id={inputAddress}
                 required
-                onChange={(e) =>
-                  setReader({ ...reader, address: e.target.value })
-                }
                 value={reader.address}
+                onChange={handleInputAddressChange}
               />
             </Field>
             <br />
-            <div className={styles.root}>
+            <div>
               <label id={dropdownId} style={{ paddingInlineEnd: "12px" }}>
                 Chọn thẻ thư viện
               </label>
@@ -146,7 +139,11 @@ const EditReader: React.FC<EditReaderProps> = (
                 disabled={
                   !reader.name || !reader.address || !reader.library_card_id
                 }
-                onClick={() => handleUpdate({ ...reader })}
+                onClick={() =>
+                  handleUpdate({
+                    ...reader,
+                  })
+                }
               >
                 Cập nhật
               </Button>
