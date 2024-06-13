@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\WebApp\\Library\\book_library_management\\server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|d:\\webapp\\library\\book_library_management\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|d:\\webapp\\library\\book_library_management\\server\\server\\controllers\\loanslipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|solutionrelative:server\\controllers\\loanslipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Program.cs",
-              "RelativeDocumentMoniker": "server\\Program.cs",
-              "ToolTip": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Program.cs",
-              "RelativeToolTip": "server\\Program.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAmwCAAAAAXAAAA",
+              "Title": "LoanSlipController.cs",
+              "DocumentMoniker": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Controllers\\LoanSlipController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\LoanSlipController.cs",
+              "ToolTip": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Controllers\\LoanSlipController.cs",
+              "RelativeToolTip": "server\\Controllers\\LoanSlipController.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAUwE0AAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T10:36:13.829Z",
+              "WhenOpened": "2024-06-12T15:15:52.828Z",
               "EditorCaption": ""
             }
           ]

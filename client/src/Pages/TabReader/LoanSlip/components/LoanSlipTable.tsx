@@ -16,6 +16,8 @@ import {
   deleteLoanSlip,
   getLoanSlip,
 } from "../../../../Redux/Reducers/loan_slip.reducer";
+import EditLoanSlip from "./EditLoanSlip";
+import BorrowedDetail from "./BorrowedDetail";
 
 const columns = [
   { label: "Mã phiếu mượn" },
@@ -38,7 +40,7 @@ const LoanSlipTable = () => {
         await dispatch(getLoanSlip());
       }
     } catch (error) {
-      console.error("Failed to delete type book", error);
+      console.error("Failed to delete loan slip", error);
     }
   };
   const loanSlip = useAppSelector((state) => state.loanSlip.loanSlip);
@@ -55,15 +57,15 @@ const LoanSlipTable = () => {
     <Table {...keyboardNavAttr} role="grid">
       <TableHeader className="font-bold">
         <TableRow>
-          {columns.map((column) => (
-            <TableHeaderCell>{column.label}</TableHeaderCell>
+          {columns.map((column, index) => (
+            <TableHeaderCell key={index}>{column.label}</TableHeaderCell>
           ))}
           <TableHeaderCell />
         </TableRow>
       </TableHeader>
       <TableBody>
-        {loanSlip.map((item) => (
-          <TableRow key={item.id}>
+        {loanSlip.map((item, index) => (
+          <TableRow key={index}>
             <TableCell tabIndex={0} role="gridcell">
               <TableCellLayout>{item.id}</TableCellLayout>
             </TableCell>
@@ -72,7 +74,8 @@ const LoanSlipTable = () => {
             </TableCell>
             <TableCell role="gridcell" tabIndex={0} {...focusableGroupAttr}>
               <TableCellLayout>
-                {/* <EditLoanSlip id={item.id} /> */}
+                <BorrowedDetail id={item.id} />
+                <EditLoanSlip id={item.id} />
                 <Button
                   icon={<DeleteRegular />}
                   aria-label="Delete"

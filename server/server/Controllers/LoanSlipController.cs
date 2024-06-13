@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Core.Dtos.LoanSlip;
 using server.Core.Dtos.TypeBook;
+using server.Core.Entities.BorrowedDetail;
 using server.Core.Entities.LoanSlip;
 using server.Core.Models.Category;
 using server.Data;
@@ -43,14 +44,38 @@ namespace server.Controllers
             return Ok(loanSlip);
         }
         [HttpPost]
-        public async Task<ActionResult> AddLoanSlip([FromBody] LoanSlipCreatedDto newLoanSlip)
+        public async Task<ActionResult> AddLoanSlipWithBorrowedDetail([FromBody] LoanSlipCreatedDto newLoanSlip)
         {
+            if (string.IsNullOrEmpty(newLoanSlip.borrowed_day) || string.IsNullOrEmpty(newLoanSlip.pay_day))
+            {
+                return BadRequest("Ngày mượn hoặc ngày trả không được để trống");
+            }
+            if (!DateTime.TryParse(newLoanSlip.borrowed_day, out DateTime borrowedDay) ||
+                !DateTime.TryParse(newLoanSlip.pay_day, out DateTime payDay))
+            {
+                return BadRequest("Ngày mượn hoặc ngày trả không hợp lệ");
+            }
+
+            if (borrowedDay > payDay)
+            {
+                return BadRequest("Ngày mượn không thể sau ngày trả");
+            }
             LoanSlipModel loanSlip = new LoanSlipModel
             {
                 id = GenerateId(),
                 library_card_id = newLoanSlip.library_card_id,
             };
+            BorrowedDetailModel borrowedDetail = new BorrowedDetailModel
+            {
+                id = loanSlip.id,
+                name = newLoanSlip.name,
+                book_id = newLoanSlip.book_id,
+                borrowed_day = newLoanSlip.borrowed_day,
+                pay_day = newLoanSlip.pay_day,
+                note = newLoanSlip.note,
+            };
             await _context.LoanSlip.AddAsync(loanSlip);
+            await _context.BorrowDetail.AddAsync(borrowedDetail);
             await _context.SaveChangesAsync();
             return Ok("Add success");
         }
@@ -74,8 +99,22 @@ namespace server.Controllers
             {
                 return BadRequest("Missing required parameter: Id");
             }
+            if (string.IsNullOrEmpty(updateLoanSlip.borrowed_day) || string.IsNullOrEmpty(updateLoanSlip.pay_day))
+            {
+                return BadRequest("Ngày mượn hoặc ngày trả không được để trống");
+            }
+            if (!DateTime.TryParse(updateLoanSlip.borrowed_day, out DateTime borrowedDay) ||
+                !DateTime.TryParse(updateLoanSlip.pay_day, out DateTime payDay))
+            {
+                return BadRequest("Ngày mượn hoặc ngày trả không hợp lệ");
+            }
 
-            var existingLoanSlip = await _context.LoanSlip.FindAsync(id);
+            if (borrowedDay > payDay)
+            {
+                return BadRequest("Ngày mượn không thể sau ngày trả");
+            }
+
+            var existingLoanSlip = await _context.LoanSlip.Include(ls => ls.borrowed_detail).FirstOrDefaultAsync(ls => ls.id == id);
 
             if (existingLoanSlip == null)
             {
@@ -83,6 +122,15 @@ namespace server.Controllers
             }
 
             existingLoanSlip.library_card_id = updateLoanSlip.library_card_id;
+            if (existingLoanSlip.borrowed_detail != null)
+            {
+                var borrowedDetail = existingLoanSlip.borrowed_detail.First();
+                borrowedDetail.name = updateLoanSlip.name;
+                borrowedDetail.book_id = updateLoanSlip.book_id;
+                borrowedDetail.borrowed_day = updateLoanSlip.borrowed_day;
+                borrowedDetail.pay_day = updateLoanSlip.pay_day;
+                borrowedDetail.note = updateLoanSlip.note;
+            }
             await _context.SaveChangesAsync();
 
             return Ok("Update success");
@@ -95,13 +143,14 @@ namespace server.Controllers
                 return BadRequest("Missing required parameter: id");
             }
 
-            var loanSlip = await _context.LoanSlip.FindAsync(id);
+            var loanSlip = await _context.LoanSlip.Include(ls => ls.borrowed_detail).FirstOrDefaultAsync(ls => ls.id == id);
 
             if (loanSlip == null)
             {
                 return NotFound();
             }
             _context.LoanSlip.Remove(loanSlip);
+            _context.BorrowDetail.RemoveRange(loanSlip.borrowed_detail);
             await _context.SaveChangesAsync();
 
             return Ok("Delete success");

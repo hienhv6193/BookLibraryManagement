@@ -8,7 +8,6 @@ import type {
 import LibraryCard from "./LibraryCard/LibraryCard";
 import LoanSlip from "./LoanSlip/LoanSlip";
 import Reader from "./Reader/Reader";
-import BorrowedDetail from "./BorrowedDetail/BorrowedDetail";
 
 const useStyles = makeStyles({
   root: {
@@ -64,11 +63,6 @@ const TabReader = () => {
     </div>
   ));
 
-  const BorrowedDetailTab = React.memo(() => (
-    <div role="tabpanel" aria-labelledby="Chi tiết phiếu mượn">
-      <BorrowedDetail />
-    </div>
-  ));
   return (
     <div className={styles.root}>
       <TabList selectedValue={selectedValue} onTabSelect={onTabSelect}>
@@ -81,15 +75,11 @@ const TabReader = () => {
         <Tab id="LoanSlip" value="loanSlip">
           Phiếu mượn
         </Tab>
-        <Tab id="BorrowedDetail" value="borrowedDetail">
-          Chi tiết phiếu mượn
-        </Tab>
       </TabList>
       <div className={styles.panels}>
         {selectedValue === "libraryCard" && <LibraryCardTab />}
         {selectedValue === "reader" && <ReaderTab />}
         {selectedValue === "loanSlip" && <LoanSlipTab />}
-        {selectedValue === "borrowedDetail" && <BorrowedDetailTab />}
       </div>
     </div>
   );

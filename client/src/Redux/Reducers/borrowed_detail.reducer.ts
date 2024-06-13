@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { baseUrl } from "../../Constants/url.constants";
 
-export interface BorrowedDetail {
+export interface BorrowedDetailModel {
   id: string;
   name: string;
   book_id: string;
@@ -11,7 +11,7 @@ export interface BorrowedDetail {
 }
 
 interface BorrowedDetailState {
-  borrowed_detail: BorrowedDetail[];
+  borrowed_detail: BorrowedDetailModel[];
   loading: boolean;
   error: string | null;
 }
@@ -28,7 +28,7 @@ export const getBorrowedDetail = createAsyncThunk(
   "borrowedDetail",
   async () => {
     const response = await fetch(apiUrl);
-    const data: BorrowedDetail[] = await response.json();
+    const data: BorrowedDetailModel[] = await response.json();
     return data;
   }
 );
@@ -37,48 +37,8 @@ export const getBorrowedDetailById = createAsyncThunk(
   "borrowedDetail/getById",
   async (id: string) => {
     const response = await fetch(`${apiUrl}/GetById?id=${id}`);
-    const data: BorrowedDetail = await response.json();
+    const data: BorrowedDetailModel = await response.json();
     return data;
-  }
-);
-
-export const createBorrowedDetail = createAsyncThunk(
-  "borrowedDetail/create",
-  async (newReader: BorrowedDetail) => {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newReader),
-    });
-    const data: BorrowedDetail = await response.json();
-    return data;
-  }
-);
-
-export const updateBorrowedDetail = createAsyncThunk(
-  "borrowedDetail/update",
-  async (borrowedDetail: BorrowedDetail & { id: string }) => {
-    const response = await fetch(`${apiUrl}?id=${borrowedDetail.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(borrowedDetail),
-    });
-    const data: BorrowedDetail = await response.json();
-    return data;
-  }
-);
-
-export const deleteBorrowedDetail = createAsyncThunk(
-  "borrowedDetail/delete",
-  async (id: string) => {
-    await fetch(`${apiUrl}?id=${id}`, {
-      method: "DELETE",
-    });
-    return id;
   }
 );
 

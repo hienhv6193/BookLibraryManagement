@@ -8,6 +8,11 @@ export interface LoanSlip {
 
 export interface CreateLoanSlipBody {
   library_card_id: string;
+  name: string;
+  book_id: string;
+  borrowed_day: string;
+  pay_day: string;
+  note: string;
 }
 
 interface LoanSlipState {

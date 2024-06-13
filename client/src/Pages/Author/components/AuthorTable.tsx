@@ -57,15 +57,15 @@ const AuthorTable = () => {
     <Table {...keyboardNavAttr} role="grid">
       <TableHeader className="font-bold">
         <TableRow>
-          {columns.map((column) => (
-            <TableHeaderCell>{column.label}</TableHeaderCell>
+          {columns.map((column, index) => (
+            <TableHeaderCell key={index}>{column.label}</TableHeaderCell>
           ))}
           <TableHeaderCell />
         </TableRow>
       </TableHeader>
       <TableBody>
-        {author.map((item) => (
-          <TableRow key={item.id}>
+        {author.map((item, index) => (
+          <TableRow key={index}>
             <TableCell tabIndex={0} role="gridcell">
               <TableCellLayout>{item.id}</TableCellLayout>
             </TableCell>
