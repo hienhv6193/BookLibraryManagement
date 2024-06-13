@@ -21,6 +21,7 @@ import {
   getLibraryCard,
 } from "../../../../Redux/Reducers/library_card.reducer";
 import { useAppDispatch } from "../../../../Redux/hooks";
+import { format } from "date-fns";
 
 const AddLibraryCard = (props: Partial<DatePickerProps>) => {
   const inputId = useId("input");
@@ -33,17 +34,37 @@ const AddLibraryCard = (props: Partial<DatePickerProps>) => {
   const onClickCreateDay: React.ReactEventHandler<HTMLInputElement> = (
     event
   ) => {
+    const dateString = event.currentTarget.value;
+    const parsedDate = new Date(dateString);
+
+    if (isNaN(parsedDate.getTime())) {
+      console.error("Invalid date format:", dateString);
+      return;
+    }
+
+    const formattedDate = format(parsedDate, "yyyy-MM-dd");
+
     setLibraryCard({
       ...libraryCard,
-      card_created_date: event.currentTarget.value,
+      card_created_date: formattedDate,
     });
   };
   const onClickExpiryDay: React.ReactEventHandler<HTMLInputElement> = (
     event
   ) => {
+    const dateString = event.currentTarget.value;
+    const parsedDate = new Date(dateString);
+
+    if (isNaN(parsedDate.getTime())) {
+      console.error("Invalid date format:", dateString);
+      return;
+    }
+
+    const formattedDate = format(parsedDate, "yyyy-MM-dd");
+
     setLibraryCard({
       ...libraryCard,
-      card_expiry_date: event.currentTarget.value,
+      card_expiry_date: formattedDate,
     });
   };
   const handleCreate = async (newLibraryCard: CreateLibraryCardBody) => {

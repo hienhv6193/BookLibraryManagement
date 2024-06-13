@@ -90,9 +90,7 @@ const AddPublishingCompany = () => {
             <DialogTrigger disableButtonEnhancement>
               <Button
                 appearance="primary"
-                disabled={
-                  !publishing.name || !publishing.address || !publishing.email
-                }
+                disabled={!publishing.name || !publishing.address}
                 onClick={() => handleCreate(publishing)}
               >
                 Thêm

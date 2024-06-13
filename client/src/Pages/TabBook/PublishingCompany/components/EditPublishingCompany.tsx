@@ -121,11 +121,7 @@ const EditPublishingCompany: React.FC<EditPublishingCompanyProps> = ({
             <DialogTrigger disableButtonEnhancement>
               <Button
                 appearance="primary"
-                disabled={
-                  !publishingCompany.name ||
-                  !publishingCompany.address ||
-                  !publishingCompany.email
-                }
+                disabled={!publishingCompany.name || !publishingCompany.address}
                 onClick={() =>
                   handleUpdatePublishingCompany({ ...publishingCompany })
                 }

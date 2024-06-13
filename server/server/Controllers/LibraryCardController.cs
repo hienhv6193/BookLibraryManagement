@@ -43,6 +43,20 @@ namespace server.Controllers
         [HttpPost]
         public async Task<ActionResult> AddLibraryCard([FromBody] LibraryCardCreatedDto newLibraryCard)
         {
+            if (string.IsNullOrEmpty(newLibraryCard.card_created_date) || string.IsNullOrEmpty(newLibraryCard.card_expiry_date))
+            {
+                return BadRequest("Ngày tạo hoặc ngày hết hạn không được để trống");
+            }
+            if (!DateTime.TryParse(newLibraryCard.card_created_date, out DateTime cardCreatedDate) ||
+                !DateTime.TryParse(newLibraryCard.card_expiry_date, out DateTime cardExpiryDate))
+            {
+                return BadRequest("Ngày tạo hoặc ngày hết hạn không hợp lệ");
+            }
+
+            if (cardCreatedDate > cardExpiryDate)
+            {
+                return BadRequest("Ngày tạo không thể sau ngày hết hạn");
+            }
             LibraryCardModel libraryCard = new LibraryCardModel
             {
                 id = GenerateId(),
@@ -74,6 +88,20 @@ namespace server.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 return BadRequest("Missing required parameter: Id");
+            }
+            if (string.IsNullOrEmpty(updateLibraryCard.card_created_date) || string.IsNullOrEmpty(updateLibraryCard.card_expiry_date))
+            {
+                return BadRequest("Ngày tạo hoặc ngày hết hạn không được để trống");
+            }
+            if (!DateTime.TryParse(updateLibraryCard.card_created_date, out DateTime cardCreatedDate) ||
+                !DateTime.TryParse(updateLibraryCard.card_expiry_date, out DateTime cardExpiryDate))
+            {
+                return BadRequest("Ngày tạo hoặc ngày hết hạn không hợp lệ");
+            }
+
+            if (cardCreatedDate > cardExpiryDate)
+            {
+                return BadRequest("Ngày tạo không thể sau ngày hết hạn");
             }
 
             var existingLibraryCard = await _context.LibraryCard.FindAsync(id);

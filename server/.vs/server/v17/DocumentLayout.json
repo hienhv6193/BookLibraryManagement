@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\WebApp\\Library\\book_library_management\\server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|d:\\webapp\\library\\book_library_management\\server\\server\\controllers\\librarycardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|solutionrelative:server\\controllers\\librarycardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|d:\\webapp\\library\\book_library_management\\server\\server\\controllers\\loanslipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0D1C67DD-3BDC-4ED2-A192-AEEF08277F81}|server\\server.csproj|solutionrelative:server\\controllers\\loanslipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -14,19 +18,31 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "LoanSlipController.cs",
               "DocumentMoniker": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Controllers\\LoanSlipController.cs",
               "RelativeDocumentMoniker": "server\\Controllers\\LoanSlipController.cs",
               "ToolTip": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Controllers\\LoanSlipController.cs",
               "RelativeToolTip": "server\\Controllers\\LoanSlipController.cs",
-              "ViewState": "AQIAADoAAAAAAAAAAAAUwE0AAABBAAAA",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAowAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T15:15:52.828Z",
+              "WhenOpened": "2024-06-13T02:23:08.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LibraryCardController.cs",
+              "DocumentMoniker": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Controllers\\LibraryCardController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\LibraryCardController.cs",
+              "ToolTip": "D:\\WebApp\\Library\\book_library_management\\server\\server\\Controllers\\LibraryCardController.cs",
+              "RelativeToolTip": "server\\Controllers\\LibraryCardController.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAswGAAAABkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T02:20:04.379Z",
               "EditorCaption": ""
             }
           ]
